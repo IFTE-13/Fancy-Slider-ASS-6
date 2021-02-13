@@ -3,6 +3,13 @@ document.getElementById("search").addEventListener("keypress", function(event){
       document.getElementById("search-btn").click();
   }
 })
+
+document.getElementById("doration").addEventListener("keypress", function(event){
+  if(event.key === 'Enter'){
+      document.getElementById("create-slider").click();
+  }
+})
+
 const imagesArea = document.querySelector('.images');
 const gallery = document.querySelector('.gallery');
 const galleryHeader = document.querySelector('.gallery-header');
@@ -76,6 +83,7 @@ const createSlider = () => {
   imagesArea.style.display = 'none';
   const duration = document.getElementById('doration').value || 1000;
   if(duration<0){
+    alert("You entered negative value but click ok anyway to proceed...!")
     sliders.forEach(slide => {
       let item = document.createElement('div')
       item.className = "slider-item";

@@ -4,7 +4,7 @@ document.getElementById("search").addEventListener("keypress", function (event) 
   }
 })
 
-document.getElementById("doration").addEventListener("keypress", function (event) {
+document.getElementById("duration-part").addEventListener("keypress", function (event) {
   if (event.key === 'Enter') {
     document.getElementById("create-slider").click();
   }
@@ -37,9 +37,11 @@ const showImages = (images) => {
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div);
   })
+  toggleSpinner();
 }
 
 const getImages = (query) => {
+  toggleSpinner();
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -82,7 +84,7 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('doration').value || 1000;
+  const duration = document.getElementById('duration-part').value || 1000;
   if (duration < 0) {
     alert("You entered negative value but click ok anyway to proceed...!")
     sliders.forEach(slide => {
@@ -114,10 +116,8 @@ const createSlider = () => {
       changeSlide(slideIndex);
     }, duration);
   }
-
-
-
 }
+
 // change slider index 
 const changeItem = index => {
   changeSlide(slideIndex += index);
@@ -125,7 +125,6 @@ const changeItem = index => {
 
 // change slide item
 const changeSlide = (index) => {
-
   const items = document.querySelectorAll('.slider-item');
   if (index < 0) {
     slideIndex = items.length - 1
@@ -151,6 +150,7 @@ searchBtn.addEventListener('click', function () {
   getImages(search.value)
   sliders.length = 0;
   document.getElementById("count").innerText = 0;
+  
 })
 
 sliderBtn.addEventListener('click', function () {
@@ -161,5 +161,5 @@ sliderBtn.addEventListener('click', function () {
 
 const toggleSpinner = () => {
   const spinner = document.getElementById("loading-spinner");
-  spinner.classList.toggle('d-none');
+    spinner.classList.toggle('d-none');
 }

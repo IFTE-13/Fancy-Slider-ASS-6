@@ -58,7 +58,7 @@ const selectItem = (event, img) => {
   }
   else {
     let element = event.target;
-    sliders.pop();
+    sliders.splice(item, 1);
     element.classList.remove('added');
   }
   document.getElementById("count").innerText = sliders.length;
